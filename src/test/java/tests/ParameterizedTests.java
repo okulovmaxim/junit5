@@ -2,6 +2,7 @@ package tests;
 
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 
 import java.util.ArrayList;
@@ -45,8 +46,14 @@ public class ParameterizedTests {
 
     @DisplayName("Проверка списка на наличие указанных пользователей") // Человекочитаемое название теста
     @ParameterizedTest
-    @CsvSource({"okulov.m.i@gmail.com", "kalugin.v.i@gmail.com", "example@gmail.com"})
+    @CsvSource({"okulov.m.i@gmail.com", "kalugin.v.i@gmail.com", "example@gmail.com"}) // Данные для параметризованного теста передаем в аннотацию
     public void checkUsersInList(String email) {
+        Assertions.assertTrue(userList.contains(email));
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/user.csv") // Данные для параметризованного теста берем из файла
+    public void checkUsersInListFromFile(String email) {
         Assertions.assertTrue(userList.contains(email));
     }
 }
