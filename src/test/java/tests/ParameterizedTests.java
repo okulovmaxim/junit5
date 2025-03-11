@@ -73,5 +73,6 @@ public class ParameterizedTests {
     @MethodSource("userTest") // Перебираем стрим аргументов из переданного в аннтоацию метода
     public void checkUsersInListWithMethod(User user) {
         Assertions.assertTrue(userList.contains(user.getEmail()));
+        // Для коммита
     }
 }
