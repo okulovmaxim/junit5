@@ -1,6 +1,8 @@
 package utilities;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.SneakyThrows;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -16,11 +18,8 @@ public class JsonConverter {
         }
     }
 
+    @SneakyThrows
     public static String toJson(Object object) {
-        try {
             return objectMapper.writeValueAsString(object);
-        } catch (IOException e) {
-            throw new RuntimeException();
-        }
     }
 }
