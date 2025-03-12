@@ -1,12 +1,16 @@
 package tests;
 
+import models.User;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 public class ParameterizedTests {
 
@@ -55,5 +59,20 @@ public class ParameterizedTests {
     @CsvFileSource(resources = "/user.csv") // Данные для параметризованного теста берем из файла
     public void checkUsersInListFromFile(String email) {
         Assertions.assertTrue(userList.contains(email));
+    }
+
+    private static Stream<Arguments> userTest() {
+        return Stream.of(
+                Arguments.of(new User("okulov.m.i@gmail.com")),
+                Arguments.of(new User("ivanov.i.i@gmail.com")),
+                Arguments.of(new User("example@gmail.com"))
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("userTest") // Перебираем стрим аргументов из переданного в аннтоацию метода
+    public void checkUsersInListWithMethod(User user) {
+        Assertions.assertTrue(userList.contains(user.getEmail()));
+        // Для коммита
     }
 }
