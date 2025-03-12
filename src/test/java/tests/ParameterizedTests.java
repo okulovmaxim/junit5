@@ -7,6 +7,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
+import utilities.JsonConverter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,5 +75,11 @@ public class ParameterizedTests {
     public void checkUsersInListWithMethod(User user) {
         Assertions.assertTrue(userList.contains(user.getEmail()));
         // Для коммита
+    }
+
+    @Test
+    public void checkEmail() {
+        User user = JsonConverter.fromJson("src/test/resources/email.json", User.class);
+        Assertions.assertEquals(user.getEmail(), "okulov.m.i@gmail.com");
     }
 }
